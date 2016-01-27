@@ -37,6 +37,8 @@ printf "\nInstalling cask packages...\n"
 # Define packages to install
 cask_pkgs=(
     webstorm
+    sequel-pro
+    psequel
     evernote
     dropbox
     firefox
