@@ -1,6 +1,6 @@
 [core]
     ignorecase = true
-    editor = sublime -w
+    editor = subl -w
     excludesfile = ~/.gitignore_global
 [color]
     ui = auto
@@ -24,7 +24,7 @@
     newHighlight = "green bold 22"
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path =
+	path = 
 [mergetool "sourcetree"]
 	cmd = /opt/homebrew-cask/Caskroom/sourcetree/2.0.4/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true

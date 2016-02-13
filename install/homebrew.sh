@@ -42,6 +42,7 @@ bottles=(
     git
     bash-completion
     node
+    tor
     dockutil
     midnight-commander
     mongodb
@@ -53,6 +54,12 @@ for bottle in "${bottles[@]}"
 do
     install_bottle $bottle
 done
+
+printf "\nStart TOR at login...\n"
+ln -sfv /usr/local/opt/tor/*.plist ~/Library/LaunchAgents
+
+printf "\nStart Redis at login...\n"
+ln -sfv /usr/local/opt/redis/*.plist ~/Library/LaunchAgents
 
 printf "\n%s========= Complete, clean up ==========%s\n" "${cyn}" "${end}"
 brew cleanup
