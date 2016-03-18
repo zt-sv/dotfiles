@@ -55,11 +55,16 @@ do
     install_bottle $bottle
 done
 
+mkdir -p ~/Library/LaunchAgents/
+
 printf "\nStart TOR at login...\n"
-ln -sfv /usr/local/opt/tor/*.plist ~/Library/LaunchAgents
+ln -sfv /usr/local/opt/tor/*.plist ~/Library/LaunchAgents/
 
 printf "\nStart Redis at login...\n"
-ln -sfv /usr/local/opt/redis/*.plist ~/Library/LaunchAgents
+ln -sfv /usr/local/opt/redis/*.plist ~/Library/LaunchAgents/
+
+printf "\nStart MongoDB at login...\n"
+ln -sfv /usr/local/opt/redis/*.plist ~/Library/LaunchAgents/
 
 printf "\n%s========= Complete, clean up ==========%s\n" "${cyn}" "${end}"
 brew cleanup
