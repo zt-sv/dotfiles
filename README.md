@@ -4,6 +4,8 @@
 ```bash
 sudo softwareupdate -i -a
 xcode-select --install
+sudo xcodebuild -license
+chmod a+x install.sh
 ```
 
 ## Package overview
@@ -25,6 +27,7 @@ Install:
     - [n](https://www.npmjs.com/package/n)
 * [Cask](http://caskroom.io/) and applications:
     - [webstorm](https://www.jetbrains.com/webstorm/)
+    - [nylas-n1](https://www.nylas.com/n1)
     - evernote
     - dropbox
     - firefox
