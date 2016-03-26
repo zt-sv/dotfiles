@@ -47,6 +47,7 @@ bottles=(
     midnight-commander
     mongodb
     redis
+    nmap
 )
 
 # Install all bottles
