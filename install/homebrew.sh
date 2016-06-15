@@ -38,6 +38,7 @@ printf "\nInstalling homebrew bottles...\n"
 
 # Define bottles to install
 bottles=(
+    keybase
     mackup
     git
     bash-completion
