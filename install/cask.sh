@@ -39,10 +39,11 @@ cask_pkgs=(
     webstorm
     sequel-pro
     psequel
-    evernote
     dropbox
     firefox
     virtualbox
+    vagrant
+    vagrant-manager
     iterm2
     skype
     nylas-n1
