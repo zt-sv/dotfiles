@@ -89,6 +89,9 @@ check_status() {
 # Install cask and packages
 . "$DOTFILES_DIR/install/cask.sh"
 
+# Install Vagrant
+. "$DOTFILES_DIR/install/vagrant.sh"
+
 # Install NPM packages
 . "$DOTFILES_DIR/install/npm.sh"
 
