@@ -42,8 +42,6 @@ cask_pkgs=(
     dropbox
     firefox
     virtualbox
-    vagrant
-    vagrant-manager
     iterm2
     skype
     nylas-n1
