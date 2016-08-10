@@ -38,10 +38,11 @@ printf "\nInstalling vagrant plugins...\n"
 # Define packages to install
 vagrant_plugins=(
   vagrant-salt
+  vagrant-hostmanager
 )
 
 # Install all cask
 for plugin in "${vagrant_plugins[@]}"
 do
-    install_cask plugin
+    install_plugin plugin
 done
