@@ -14,7 +14,7 @@ cask_installed () {
 install_cask() {
     if ! cask_installed "$1"; then
         printf "\nInstalling homebrew cask %s...\n" "$1"
-        brew cask install "$1"
+        brew cask install "$1" --force
         check_status $?
     else
         printf "\nSkipping homebrew cask %s, already installed.\n" "$1"
@@ -51,6 +51,7 @@ cask_pkgs=(
     lastfm
     sourcetree
     utorrent
+    quip
     xld
 
     # Quicklook plugins https://github.com/sindresorhus/quick-look-plugins
