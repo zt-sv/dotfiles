@@ -19,7 +19,7 @@ install_plugin() {
 
 if ! cask_installed vagrant; then
     printf "\nInstalling Vagrant...\n"
-    brew cask install vagrant
+    brew cask install vagrant --force
     check_status $?
 else
     printf "\nSkipping Vagrant, already installed.\n"
