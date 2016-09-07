@@ -44,6 +44,7 @@ cask_pkgs=(
     virtualbox
     iterm2
     skype
+    slack
     nylas-n1
     sublime-text3
     vlc
