@@ -103,9 +103,6 @@ check_status() {
 
 # Sublime
 printf "\n%s======== Sublime Configuration ========%s\n" "${cyn}" "${end}"
-printf "Add Sublime Text CLI...\n"
-sudo ln -sf "~/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl" /usr/local/bin/sublime
-check_status $?
 
 printf "Install Sublime Predawn theme";
 git clone https://github.com/jamiewilson/predawn.git ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/Predawn

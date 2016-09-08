@@ -46,7 +46,7 @@ cask_pkgs=(
     skype
     slack
     nylas-n1
-    sublime-text3
+    sublime-text
     vlc
     google-chrome
     lastfm
@@ -54,6 +54,7 @@ cask_pkgs=(
     utorrent
     quip
     xld
+    tunnelblick
 
     # Quicklook plugins https://github.com/sindresorhus/quick-look-plugins
     qlcolorcode
