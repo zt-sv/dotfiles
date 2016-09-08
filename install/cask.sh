@@ -46,7 +46,7 @@ cask_pkgs=(
     skype
     slack
     nylas-n1
-    sublime-text3
+    sublime-text
     vlc
     google-chrome
     lastfm
