@@ -55,6 +55,7 @@ cask_pkgs=(
     quip
     xld
     tunnelblick
+    filezilla
 
     # Quicklook plugins https://github.com/sindresorhus/quick-look-plugins
     qlcolorcode
