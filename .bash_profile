@@ -220,3 +220,24 @@ ii() {
 #   6. WEB DEVELOPMENT
 #   ---------------------------------------
 alias editHosts='sudo subl /etc/hosts'  # editHosts: Edit /etc/hosts file
+
+#   ---------------------------------------
+#   7. GIT
+#   ---------------------------------------
+git-br-clean () {
+    cmd=$(git branch -lvv | cut -c3- | awk '/: gone]/ {print $1}') 
+    if [ -z "$cmd" ]
+    then
+        echo "* No untracked branches found"
+        return 0
+    fi
+    echo "* Going to remove the following local branches without remote:"
+    echo -e "$cmd\n"
+    res='' 
+    read -p "* Continue (Y/n)? " res
+    if [[ "$res" = '' || "$res" = "y" || "$res" = "Y" ]]
+    then
+        echo $cmd | xargs git br -d 2> /dev/null
+        echo "* Done"
+    fi
+}
