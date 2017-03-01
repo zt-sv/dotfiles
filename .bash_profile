@@ -237,7 +237,7 @@ git-br-clean () {
     read -p "* Continue (Y/n)? " res
     if [[ "$res" = '' || "$res" = "y" || "$res" = "Y" ]]
     then
-        echo $cmd | xargs git br -d 2> /dev/null
+        echo $cmd | xargs git branch -d 2> /dev/null
         echo "* Done"
     fi
 }
