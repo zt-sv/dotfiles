@@ -45,7 +45,7 @@ cask_pkgs=(
     iterm2
     skype
     slack
-    nylas-n1
+    nylas-mail
     sublime-text
     vlc
     google-chrome
