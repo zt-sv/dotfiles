@@ -39,10 +39,10 @@ printf "\nInstalling homebrew bottles...\n"
 
 # Define bottles to install
 bottles=(
+    bash-completion@2
     keybase
     mackup
     git
-    bash-completion
     node
     tor
     dockutil
