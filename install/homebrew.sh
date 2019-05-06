@@ -39,17 +39,21 @@ printf "\nInstalling homebrew bottles...\n"
 
 # Define bottles to install
 bottles=(
-    bash-completion@2
+    bash
     keybase
     mackup
     git
     node
     tor
+    docker
+    ansible
+    ansible-lint
     dockutil
     midnight-commander
     mongodb
     redis
     nmap
+    bash-completion@2
 )
 
 # Install all bottles
