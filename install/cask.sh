@@ -36,21 +36,17 @@ printf "\nInstalling cask packages...\n"
 
 # Define packages to install
 cask_pkgs=(
-    webstorm
-    sequel-pro
+    jetbrains-toolbox
     psequel
     dropbox
     firefox
     virtualbox
     iterm2
     skype
-    slack
-    nylas-mail
     sublime-text
     vlc
     google-chrome
     lastfm
-    sourcetree
     utorrent
     quip
     xld
