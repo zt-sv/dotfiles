@@ -50,8 +50,6 @@ bottles=(
     ansible-lint
     dockutil
     midnight-commander
-    mongodb
-    redis
     nmap
     bash-completion@2
 )
