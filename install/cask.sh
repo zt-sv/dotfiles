@@ -37,7 +37,6 @@ printf "\nInstalling cask packages...\n"
 # Define packages to install
 cask_pkgs=(
     jetbrains-toolbox
-    psequel
     dropbox
     firefox
     virtualbox
