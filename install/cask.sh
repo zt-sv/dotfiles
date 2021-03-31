@@ -1,76 +1,66 @@
-#############################################
-#                                           #
-#                   CASK                    #
-#          http://caskroom.io/              #
-#                                           #
-#############################################
-
-printf "\n%s================= Cask ================%s\n" "${cyn}" "${end}"
+#!/usr/bin/env bash
 
 cask_installed () {
-    ! brew cask info "$1"|grep "Not installed" > /dev/null ;
+    ! brew info "$1"|grep "Not installed" > /dev/null ;
 }
 
 install_cask() {
     if ! cask_installed "$1"; then
-        printf "\nInstalling homebrew cask %s...\n" "$1"
-        brew cask install "$1" --force
+        printf "\nInstalling homebrew cask %s...\n" "${yel}$1${end}"
+        brew install --cask "$1"
         check_status $?
     else
-        printf "\nSkipping homebrew cask %s, already installed.\n" "$1"
+        printf "\nSkipping homebrew cask %s, already installed.\n" "${yel}$1${end}"
     fi
 }
 
+install_iterm2_util() {
+  curl -L https://iterm2.com/shell_integration/install_shell_integration_and_utilities.sh | bash
+}
+
 # Install Homebrew Cask itself
-
-brew tap caskroom/cask
-brew tap caskroom/versions
-
-# if ! command_exists brew cask; then
-    printf "\nInstalling Homebrew Cask...\n"
-    brew install caskroom/cask/brew-cask
-    check_status $?
-# fi
+brew tap homebrew/cask
 
 printf "\nInstalling cask packages...\n"
 
 # Define packages to install
 cask_pkgs=(
-    jetbrains-toolbox
-    dropbox
+    burp-suite
+    drawio
     firefox
-    virtualbox
-    iterm2
-    skype
-    sublime-text
-    vlc
     google-chrome
+    iterm2
+    jetbrains-toolbox
     lastfm
-    utorrent
-    quip
-    xld
+    lens
+    mailspring
+    postman
+    sublime-text
+    telegram
+    transmission
     tunnelblick
-    filezilla
-
-    # Quicklook plugins https://github.com/sindresorhus/quick-look-plugins
-    qlcolorcode
-    qlstephen
-    qlmarkdown
-    quicklook-json
-    qlprettypatch
-    quicklook-csv
-    betterzipql
-    qlimagesize
-    webpquicklook
-    suspicious-package
+    virtualbox
 )
 
+selected_cask_pkgs=()
+prompt_for_multiselect selected_cask_pkgs cask_pkgs[@]
+
 # Install all cask
-for cask_pkg in "${cask_pkgs[@]}"
+for cask_pkg in "${selected_cask_pkgs[@]}"
 do
     install_cask $cask_pkg
+
+    case "$cask_pkg" in
+      "iterm2")
+        if ask "Do you want to install iTerm2 utils now?" Y; then
+            install_iterm2_util
+        fi
+        ;;
+      *)
+        ;;
+    esac
 done
 
 printf "\n%s========= Complete, clean up ==========%s\n" "${cyn}" "${end}"
-brew cask cleanup
+brew cleanup
 check_status $?

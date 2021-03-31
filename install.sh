@@ -1,149 +1,71 @@
-#!/bin/sh
-
-# Die on failures
-# set -e
-
-# Echo all commands
-# set -x
-
-# Define colors
-red=$'\e[1;31m'
-grn=$'\e[1;32m'
-yel=$'\e[1;33m'
-blu=$'\e[1;34m'
-mag=$'\e[1;35m'
-cyn=$'\e[1;36m'
-end=$'\e[0m'
-
-# To end caret
-toend=$(tput hpa $(tput cols))$(tput cub 6)
+#!/usr/bin/env bash
 
 # Dotfiles dir
-DOTFILES_DIR="$( pwd )"
+DOTFILES_DIR="$(pwd)"
 
-#############################################
-#                                           #
-#                  HELPERS                  #
-#                                           #
-#############################################
+. "$DOTFILES_DIR/helpers/colors.sh"
+. "$DOTFILES_DIR/helpers/functions.sh"
 
-# Check commands
-command_exists () {
-    type "$1" &> /dev/null ;
-}
-
-# Dialog
-ask() {
-    # http://djm.me/ask
-    while true; do
-
-        if [ "${2:-}" = "Y" ]; then
-            prompt="Y/n"
-            default=Y
-        elif [ "${2:-}" = "N" ]; then
-            prompt="y/N"
-            default=N
-        else
-            prompt="y/n"
-            default=
-        fi
-
-        # Ask the question
-        read -t 1 -n 10000 discard
-        read -p "$1 [$prompt] " REPLY
-
-        # Default?
-        if [ -z "$REPLY" ]; then
-            REPLY=$default
-        fi
-
-        # Check if the reply is valid
-        case "$REPLY" in
-            Y*|y*) return 0 ;;
-            N*|n*) return 1 ;;
-        esac
-
-    done
-}
-
-check_status() {
-    if [ "$1" -eq 0 ]; then
-        echo "${grn}${toend}[OK]"
-    else
-        echo "${red}${toend}[fail]"
-    fi
-    echo "${end}"
-    echo
-}
-
-
-#############################################
-#                                           #
-#             Package managers              #
-#                                           #
-#############################################
-
-# Insall hombrew and packages
-. "$DOTFILES_DIR/install/homebrew.sh"
-
-# Install cask and packages
-. "$DOTFILES_DIR/install/cask.sh"
-
-# Install Vagrant
-. "$DOTFILES_DIR/install/vagrant.sh"
-
-# Install NPM packages
-. "$DOTFILES_DIR/install/npm.sh"
-
-#############################################
-#                                           #
-#                  Configs                  #
-#                                           #
-#############################################
-
-# Sublime
-printf "\n%s======== Sublime Configuration ========%s\n" "${cyn}" "${end}"
-
-printf "Install Sublime Predawn theme";
-git clone https://github.com/jamiewilson/predawn.git ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/Predawn
-
-# Git
-printf "\n%s========== Git Configuration ==========%s\n" "${cyn}" "${end}"
-
-printf "\nSetup .gitconfig...\n"
-ln -sfv "$DOTFILES_DIR/git/.gitconfig" ~
-check_status $?
-
-printf "\nSetup .gitignore_global...\n"
-ln -sfv "$DOTFILES_DIR/git/.gitignore_global" ~
-check_status $?
-
-read -t 1 -n 10000 discard
-read -p "Enter your name: " name
-git config --global user.name "$name"
-
-read -t 1 -n 10000 discard
-read -p "Enter your email: " name
-git config --global user.email "$email"
-
-read -t 1 -n 10000 discard
-read -p "Enter your GitHub username: " github
-git config --global github.user "$github"
-
-if ask "Do you want generate ssh key?" Y; then
-    ssh-keygen -t rsa -C "$email"
-    check_status $?
-    printf "Copy generated key to your github profile and test connection with command \n%sssh -T git@github.com%s\n" "${red}" "${end}"
+printf "\n%sCheck XCode...%s\n" "${cyn}" "${end}"
+if ! command_exists 'gcc'; then
+    printf "\n%sThe XCode Command Line Tools must be installed first.%s\n" "${red}" "${end}"
+    printf "\n%ssudo softwareupdate -i -a%s" "${red}" "${end}"
+    printf "\n%sxcode-select --install%s" "${red}" "${end}"
+    printf "\n%ssudo xcodebuild -license%s" "${red}" "${end}"
+    exit 1
 fi
 
-# Bash profile
-printf "\n%s====== Bash profile Configuration =====%s\n" "${cyn}" "${end}"
-cd ~/
-printf "\nSetup .bash_profile...\n"
-ln -sfv "$DOTFILES_DIR/.bash_profile" ~
-check_status $?
+printf "\n%s#############################################%s" "${cyn}" "${end}"
+printf "\n%s#                                           #%s" "${cyn}" "${end}"
+printf "\n%s#                 Homebrew                  #%s" "${cyn}" "${end}"
+printf "\n%s#              http://brew.sh/              #%s" "${cyn}" "${end}"
+printf "\n%s#                                           #%s" "${cyn}" "${end}"
+printf "\n%s#############################################%s\n" "${cyn}" "${end}"
+. "$DOTFILES_DIR/install/homebrew.sh"
 
-# Set up hostname
+printf "\n%s#############################################%s" "${cyn}" "${end}"
+printf "\n%s#                                           #%s" "${cyn}" "${end}"
+printf "\n%s#                   CASK                    #%s" "${cyn}" "${end}"
+printf "\n%s#      https://formulae.brew.sh/cask/       #%s" "${cyn}" "${end}"
+printf "\n%s#                                           #%s" "${cyn}" "${end}"
+printf "\n%s#############################################%s\n" "${cyn}" "${end}"
+. "$DOTFILES_DIR/install/cask.sh"
+
+printf "\n%s#############################################%s" "${cyn}" "${end}"
+printf "\n%s#                                           #%s" "${cyn}" "${end}"
+printf "\n%s#                    NPM                    #%s" "${cyn}" "${end}"
+printf "\n%s#          https://www.npmjs.com/           #%s" "${cyn}" "${end}"
+printf "\n%s#                                           #%s" "${cyn}" "${end}"
+printf "\n%s#############################################%s\n" "${cyn}" "${end}"
+. "$DOTFILES_DIR/install/npm.sh"
+
+printf "\n%s#################################################%s" "${cyn}" "${end}"
+printf "\n%s#                                               #%s" "${cyn}" "${end}"
+printf "\n%s#                macOS-Defaults                 #%s" "${cyn}" "${end}"
+printf "\n%s# https://github.com/kevinSuttle/macOS-Defaults #%s" "${cyn}" "${end}"
+printf "\n%s#                                               #%s" "${cyn}" "${end}"
+printf "\n%s#################################################%s\n" "${cyn}" "${end}"
+printf "Setup macOS defaults...\n"
+. "$DOTFILES_DIR/osx/macos.sh"
+printf "Setup dock...\n"
+. "$DOTFILES_DIR/osx/dock.sh"
+
+
+printf "\n%s#############################################%s" "${cyn}" "${end}"
+printf "\n%s#                                           #%s" "${cyn}" "${end}"
+printf "\n%s#                  Mackup                   #%s" "${cyn}" "${end}"
+printf "\n%s#       https://github.com/lra/mackup       #%s" "${cyn}" "${end}"
+printf "\n%s#                                           #%s" "${cyn}" "${end}"
+printf "\n%s#############################################%s\n" "${cyn}" "${end}"
+ln -sfv "$DOTFILES_DIR/.mackup.cfg" ~
+ln -sfv "$DOTFILES_DIR/.mackup" ~
+
+if ask "Do you want to restore Mackup backups now?" Y; then
+    mackup restore
+fi
+
+printf "\n%sSetup hostname...%s\n" "${cyn}" "${end}"
+
 read -t 1 -n 10000 discard
 read -p "Enter hostname: " hostname
 sudo scutil --set ComputerName "$hostname"
@@ -152,25 +74,16 @@ sudo scutil --set LocalHostName "$hostname"
 sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "$hostname"
 check_status $?
 
-# MacOS set up
-printf "\n%s========= MacOS Configuration =========%s\n" "${cyn}" "${end}"
-printf "Setup masos...\n"
-. "$DOTFILES_DIR/osx/osxhack.sh"
-check_status $?
-printf "Setup dock...\n"
-. "$DOTFILES_DIR/osx/dock.sh"
+printf "\nSetup .gitignore_global...\n"
+ln -sfv "$DOTFILES_DIR/git/gitignore" ~/.gitignore
 check_status $?
 
-# Mac backups
-ln -sfv "$DOTFILES_DIR/.mackup.cfg" ~
-
-
-
-#############################################
-#                                           #
-#                 COMPLETE                  #
-#                                           #
-#############################################
+if ask "Do you want generate ssh key?" Y; then
+    read -t 1 -n 10000 discard
+    read -p "Enter your email: " email
+    ssh-keygen -t rsa -b 4096 -C "$email"
+    check_status $?
+fi
 
 printf "\n%sInstall complete. Please, restart your computer%s\n" "${red}" "${end}"
 

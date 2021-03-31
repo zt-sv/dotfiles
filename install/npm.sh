@@ -1,19 +1,12 @@
-#############################################
-#                                           #
-#                    NPM                    #
-#          https://www.npmjs.com/           #
-#                                           #
-#############################################
-
-printf "\n%s================ NPM ==================%s\n" "${cyn}" "${end}"
+#!/usr/bin/env bash
 
 install_package() {
     if ! command_exists "$1"; then
-        printf "\nInstalling npm package %s...\n" "$1"
-        sudo npm install -g "$1"
+        printf "\nInstalling npm package %s...\n" "${yel}$1${end}"
+        sudo npm install --global --quiet "$1"
         check_status $?
     else
-        printf "\nSkipping npm package %s, already installed.\n" "$1"
+        printf "\nSkipping npm package %s, already installed.\n" "${yel}$1${end}"
     fi
 }
 
@@ -21,8 +14,6 @@ printf "\nInstalling global npm packages...\n"
 
 # Define packages to install
 packages=(
-    grunt
-    grunt-cli
     n
 )
 
