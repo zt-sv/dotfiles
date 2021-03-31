@@ -75,6 +75,8 @@ do
     case "$bottle" in
       "tor")
         mkdir -p ~/Library/LaunchAgents/
+        printf "\nConfigure TOR proxy...\n"
+        ln -sfv "$DOTFILES_DIR/torrc" /usr/local/etc/tor/torrc
         printf "\nStart TOR at login...\n"
         ln -sfv /usr/local/opt/tor/*.plist ~/Library/LaunchAgents/
         ;;
