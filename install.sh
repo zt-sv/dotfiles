@@ -64,6 +64,9 @@ if ask "Do you want to restore Mackup backups now?" Y; then
     mackup restore
 fi
 
+printf "\n%sConfigure Firefox profile...%s\n" "${cyn}" "${end}"
+. "$DOTFILES_DIR/firefox/install-profile.sh"
+
 printf "\n%sSetup hostname...%s\n" "${cyn}" "${end}"
 
 read -t 1 -n 10000 discard

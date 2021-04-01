@@ -41,6 +41,7 @@ bottles=(
   docker
   dockutil
   git
+  gnu-sed
   go
   helm
   htop
