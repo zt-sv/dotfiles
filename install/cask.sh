@@ -29,6 +29,7 @@ cask_pkgs=(
     drawio
     firefox
     google-chrome
+    ilya-birman-typography-layout
     iterm2
     jetbrains-toolbox
     lastfm

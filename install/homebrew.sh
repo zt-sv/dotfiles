@@ -12,7 +12,7 @@ install_bottle() {
 
 if ! command_exists brew; then
     printf "\nInstalling Homebrew...\n"
-    ruby -e "$(curl -fsSkL raw.github.com/mxcl/homebrew/go)"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
     check_status $?
 fi
 
