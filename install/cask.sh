@@ -35,6 +35,7 @@ cask_pkgs=(
     lastfm
     lens
     mailspring
+    microsoft-remote-desktop
     postman
     sublime-text
     telegram
