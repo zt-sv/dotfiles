@@ -50,8 +50,7 @@ bottles=(
   kustomize
   libyaml
   mackup
-  mc
-  midnight-commander
+  minio-mc
   nmap
   node
   protobuf
