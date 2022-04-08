@@ -42,6 +42,7 @@ cask_pkgs=(
     transmission
     tunnelblick
     virtualbox
+    wireshark
 )
 
 selected_cask_pkgs=()

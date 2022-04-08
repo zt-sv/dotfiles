@@ -38,10 +38,12 @@ bottles=(
   bash-completion2
   coreutils
   csvdiff
+  csvq
   docker
   dockutil
   git
   gnu-sed
+  gnu-tar
   go
   helm
   htop
@@ -51,6 +53,7 @@ bottles=(
   libyaml
   mackup
   minio-mc
+  mpv
   nmap
   node
   protobuf
@@ -62,6 +65,8 @@ bottles=(
   tor
   watch
   wget
+  youtube-dl
+  yq
 )
 
 selected_bottles=()
