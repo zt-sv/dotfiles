@@ -27,3 +27,8 @@ cp ./Brewfile.example ./Brewfile
 ```shell
 ./install.sh
 ```
+
+# Add new bash as a default shell
+
+1. Adding /usr/local/bin/bash to /etc/shells
+2. Running chsh -s /usr/local/bin/bash.

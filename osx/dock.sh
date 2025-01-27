@@ -36,7 +36,7 @@ defaults write com.apple.dock orientation -string "right"
 # Don’t show recent applications in Dock
 defaults write com.apple.dock show-recents -bool false
 
-if [ ! -z "$DOCK_ITEMS" ]; then
+if [ -n "$DOCK_ITEMS" ]; then
     printf "Setup Dock items..."
     # clear items
     defaults write com.apple.dock persistent-apps -array

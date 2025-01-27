@@ -41,12 +41,11 @@ ask() {
 
 check_status() {
     if [ "$1" -eq 0 ]; then
-        echo "${grn}[OK]"
+        echo -e "${grn}[OK]"
     else
-        echo "${red}[fail]"
+        echo -e "${red}[fail]"
     fi
-    echo "${end}"
-    echo
+    echo -e "${end}"
 }
 
 #based on https://stackoverflow.com/a/54261882

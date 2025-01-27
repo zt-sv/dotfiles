@@ -3,7 +3,6 @@
 # Dotfiles dir
 DOTFILES_DIR="$(pwd)"
 
-
 . "$DOTFILES_DIR/helpers/colors.sh"
 . "$DOTFILES_DIR/helpers/functions.sh"
 
@@ -18,10 +17,21 @@ else
     printf "%s[OK]%s\n" "${grn}" "${end}"
 fi
 
+printf "\n%sLink bash configs...\n%s" "${cyn}" "${end}"
+ln -sfv "$DOTFILES_DIR/bashrc" "${HOME}/.bashrc"
+check_status $?
+ln -sfv "$DOTFILES_DIR/bash_profile" "${HOME}/.bash_profile"
+check_status $?
+ln -sfv "$DOTFILES_DIR/.bashrc.d" ~
+check_status $?
+
+printf "\n%sLoad .bashrc...%s" "${cyn}" "${end}"
+source "${HOME}/.bashrc";
+
 printf "\n%sLoad config...%s" "${cyn}" "${end}"
 if test -f "$DOTFILES_DIR/config"; then
     . "$DOTFILES_DIR/config";
-    printf "\nUsing %s%s%s as a configuration%s\n" "${cyn}" "$DOTFILES_DIR/config" "${end}"
+    printf "\nUsing %s%s%s as a configuration\n" "${cyn}" "$DOTFILES_DIR/config" "${end}"
 else
     printf "%sConfiguration not found%s\n" "${yel}" "${end}"
 fi
@@ -37,7 +47,7 @@ printf "\n%s#############################################%s\n" "${cyn}" "${end}"
 printf "\n%s#################################################%s" "${cyn}" "${end}"
 printf "\n%s#                                               #%s" "${cyn}" "${end}"
 printf "\n%s#            setup macOS Defaults               #%s" "${cyn}" "${end}"
-printf "\n%s# https://github.com/kevinSuttle/macOS-Defaults #%s" "${cyn}" "${end}"
+printf "\n%s#        https://www.defaults-write.com/        #%s" "${cyn}" "${end}"
 printf "\n%s#                                               #%s" "${cyn}" "${end}"
 printf "\n%s#################################################%s\n" "${cyn}" "${end}"
 
@@ -79,6 +89,27 @@ printf "Setup dock settings...\n"
 printf "Setup apps settings...\n"
 . "$DOTFILES_DIR/osx/apps.sh"
 
+printf "\n%sConfigure Firefox profiles...%s\n" "${cyn}" "${end}"
+. "$DOTFILES_DIR/firefox/install-profile.sh"
+
+printf "\n%sCreate XDG Base Directory layout...\n%s" "${cyn}" "${end}"
+
+for __xdg_dir in "${XDG_CONFIG_HOME}" "${XDG_DATA_HOME}" "${XDG_STATE_HOME}" "${XDG_CACHE_HOME}"
+do
+  if test -d "${__xdg_dir}"; then
+    printf "Directory %s%s%s already exist\n" "${cyn}" "${__xdg_dir}" "${end}"
+  else
+    printf "Create directory %s%s%s..." "${yel}" "${__xdg_dir}" "${end}"
+    mkdir -p "${__xdg_dir}"
+    check_status $?
+  fi
+done
+
+printf "\n%sSetting iTerm preference folder...\n%s" "${cyn}" "${end}"
+defaults write com.googlecode.iterm2 PrefsCustomFolder "${XDG_CONFIG_HOME}/iterm2"
+check_status $?
+defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
+check_status $?
 
 printf "\n%s#############################################%s" "${cyn}" "${end}"
 printf "\n%s#                                           #%s" "${cyn}" "${end}"
@@ -92,9 +123,6 @@ ln -sfv "$DOTFILES_DIR/.mackup" ~
 if ask "Do you want to restore Mackup backups now?" Y; then
     mackup restore
 fi
-
-printf "\n%sConfigure Firefox profile...%s\n" "${cyn}" "${end}"
-. "$DOTFILES_DIR/firefox/install-profile.sh"
 
 printf "\n%sInstall complete. Please, restart your computer%s\n" "${red}" "${end}"
 

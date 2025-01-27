@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-BREWFILE="$DOTFILES_DIR/Brewfile"
 COMPUTERNAME="macbook"
 
 DOCK_ITEMS=(

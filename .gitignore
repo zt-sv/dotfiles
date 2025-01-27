@@ -2,3 +2,5 @@
 Brewfile
 Brewfile.lock.json
 config
+.bashrc.d/personal.bashrc
+firefox/updater.sh
