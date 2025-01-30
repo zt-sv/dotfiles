@@ -89,13 +89,13 @@ user_pref("browser.download.forbid_open_with", true);
 /* 5010: disable location bar suggestion types
  * [SETTING] Search>Address Bar>When using the address bar, suggest ***/
 user_pref("browser.urlbar.suggest.history", false);
-user_pref("browser.urlbar.suggest.bookmark", false);
+user_pref("browser.urlbar.suggest.bookmark", true);
 user_pref("browser.urlbar.suggest.openpage", false);
 user_pref("browser.urlbar.suggest.topsites", false); // [FF78+]
 
 /* 5011: disable location bar dropdown
  * This value controls the total number of entries to appear in the location bar dropdown ***/
-user_pref("browser.urlbar.maxRichResults", 0);
+user_pref("browser.urlbar.maxRichResults", 5);
 
 /* 5012: disable location bar autofill
  * [1] https://support.mozilla.org/kb/address-bar-autocomplete-firefox#w_url-autocomplete ***/
