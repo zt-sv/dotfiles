@@ -5,6 +5,10 @@ user_pref("_overrides.parrot", "overrides: started");
 
 user_pref("ui.systemUsesDarkTheme", 1);
 
+// Auto select user certificates
+user_pref("network.cors_preflight.allow_client_cert", true);
+user_pref("security.default_personal_cert", "Select Automatically");
+
 /*** [SECTION 1700]: CONTAINERS
      If you want to *really* leverage containers, we highly recommend Temporary Containers [2].
      Read the article by the extension author [3], and check out the github wiki/repo [4].
