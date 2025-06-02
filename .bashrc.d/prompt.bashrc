@@ -77,6 +77,33 @@ __set_ps1() {
         echo -e "${res}"
     }
 
+    prompt_app() {
+      local user_text_color=$1
+      local res='';
+      local apps=();
+
+      if [[ -n "${VIRTUAL_ENV-}" ]]; then
+        apps+=("$(render_container --background $venv_background_color --textcolor $venv_text_color --text ' [ v$(python --version)] ')");
+      fi;
+      if [[ -n "${NVM_BIN-}" ]]; then
+        apps+=("$(render_container --background $venv_background_color --textcolor $venv_text_color --text ' [ $(node --version)] ')");
+      fi;
+
+      for index in "${!apps[@]}"
+      do
+        [[ $index -ne 0 ]] && res+=`render_container --background $venv_background_color --textcolor $venv_text_color --text '&&'`;
+        res+="${apps[index]}"
+      done
+
+      if [[ -n "${res}" ]]; then
+        res="`render_separator --prev_bg_color $user_bg_color --next_bg_color $venv_background_color`${res}"
+        res+=`render_separator --prev_bg_color $venv_background_color --next_bg_color $dir_background_color`
+      else
+        res+=`render_separator --prev_bg_color $user_bg_color --next_bg_color $dir_background_color`
+      fi;
+      echo -e "${res}"
+    }
+
     render_container() {
         local background textcolor is_bold text res 
 
@@ -143,30 +170,20 @@ __set_ps1() {
         echo -e "$res"
     }
 
-    local promtstring userbgcolor;
+    local prompt_string user_bg_color;
 
-    [[ "$USER" = "root" ]] && userbgcolor=$root_user_background_color || userbgcolor=$default_user_background_color
-    [[ "$USER" = "root" ]] && usertextcolor=$root_user_text_color || usertextcolor=$default_user_text_color
+    [[ "$USER" = "root" ]] && user_bg_color=$root_user_background_color || user_bg_color=$default_user_background_color
+    [[ "$USER" = "root" ]] && user_text_color=$root_user_text_color || user_text_color=$default_user_text_color
 
-    promtstring+=`render_container --textcolor $userbgcolor --text '╭─'` # begin arrow to prompt
-    promtstring+=`render_container --background $userbgcolor --textcolor $usertextcolor --text ' ⌘ \\u '`
-    if [[ -n "${VIRTUAL_ENV-}" ]]; then
-        promtstring+=`render_separator --prev_bg_color $userbgcolor --next_bg_color $venv_background_color`
-        promtstring+=`render_container --background $venv_background_color --textcolor $venv_text_color --text ' [ v$(python --version)] '`;
-        promtstring+=`render_separator --prev_bg_color $venv_background_color --next_bg_color $dir_background_color`
-    elif [[ -n "${NVM_BIN-}" ]]; then
-        promtstring+=`render_separator --prev_bg_color $userbgcolor --next_bg_color $venv_background_color`
-        promtstring+=`render_container --background $venv_background_color --textcolor $venv_text_color --text ' [ $(node --version)] '`;
-        promtstring+=`render_separator --prev_bg_color $venv_background_color --next_bg_color $dir_background_color`
-    else
-        promtstring+=`render_separator --prev_bg_color $userbgcolor --next_bg_color $dir_background_color`
-    fi;
-    promtstring+=`render_container --background $dir_background_color --textcolor $dir_text_color --text ' \\w '`
-    promtstring+=`prompt_git`
-    promtstring+=`render_container --textcolor $userbgcolor --text '\n╰▶  '` #`$`
-    promtstring+=`render_container --text '\\$ '` #`$`
+    prompt_string+=`render_container --textcolor $user_bg_color --text '╭─'` # begin arrow to prompt
+    prompt_string+=`render_container --background $user_bg_color --textcolor $user_text_color --text ' ⌘ \\u '`
+    prompt_string+=`prompt_app $user_text_color`
+    prompt_string+=`render_container --background $dir_background_color --textcolor $dir_text_color --text ' \\w '`
+    prompt_string+=`prompt_git`
+    prompt_string+=`render_container --textcolor $user_bg_color --text '\n╰▶  '` #`$`
+    prompt_string+=`render_container --text '\\$ '` #`$`
 
-    echo -e "$promtstring"
+    echo -e "$prompt_string"
 }
 
 function __prompt_command {
