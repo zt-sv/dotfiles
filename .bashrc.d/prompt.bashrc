@@ -26,7 +26,11 @@ __set_ps1() {
         local res='';
 
         # Check if the current directory is in a Git repository.
-        git rev-parse --is-inside-work-tree &>/dev/null || return;
+        if ! $(git rev-parse --is-inside-work-tree &>/dev/null); then
+            res+=`render_separator --prev_bg_color $dir_background_color`
+            echo -e "${res}"
+            return;
+        fi;
 
         # Check for what branch we’re on.
         # Get the short symbolic ref. If HEAD isn’t a symbolic ref, get a
